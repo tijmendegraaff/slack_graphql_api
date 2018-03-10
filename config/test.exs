@@ -9,6 +9,11 @@ config :slack_graphql_api, SlackGraphqlApiWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Speed up password hasing in test env
+config :argon2_elixir,
+  t_cost: 2,
+  m_cost: 12
+  
 # Configure your database
 config :slack_graphql_api, SlackGraphqlApi.Repo,
   adapter: Ecto.Adapters.Postgres,
