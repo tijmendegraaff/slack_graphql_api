@@ -42,7 +42,12 @@ defmodule SlackGraphqlApi.Mixfile do
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
       {:absinthe_ecto, "~> 0.1.3"},
-      {:absinthe_phoenix, "~> 1.4"}
+      {:absinthe_phoenix, "~> 1.4"},
+      {:ex_machina, "~> 2.1"},
+      {:faker, "~> 0.9.0"},
+      {:comeonin, "~> 4.1"},
+      {:argon2_elixir, "~> 1.2"},
+      {:guardian, "~> 1.0"}
     ]
   end
 
