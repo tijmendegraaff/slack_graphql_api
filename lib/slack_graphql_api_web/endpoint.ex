@@ -35,7 +35,7 @@ defmodule SlackGraphqlApiWeb.Endpoint do
     store: :cookie,
     key: "_slack_graphql_api_key",
     signing_salt: "2nDVbkjl"
-
+  plug CORSPlug
   plug SlackGraphqlApiWeb.Router
 
   @doc """
