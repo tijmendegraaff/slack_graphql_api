@@ -4,14 +4,15 @@ defmodule SlackGraphqlApi.Accounts.User do
 
 
   schema "users" do
-    field :email, :string
+    field :user_name, :string
+    field :email, :string, unique: true
     field :first_name, :string
     field :last_name, :string
+    field :password, :string, virtual: true
     field :password_hash, :string
+    field :role, :string, default: "user"
     field :reset_password_sent_at, :utc_datetime
     field :reset_password_token, :string
-    field :role, :string
-    field :user_name, :string
 
     timestamps()
   end
