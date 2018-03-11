@@ -3,6 +3,7 @@ defmodule SlackGraphqlApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug SlackGraphqlApiWeb.Plugs.Context
   end
 
   scope "/api" do
