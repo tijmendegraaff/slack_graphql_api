@@ -22,6 +22,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures Guardian for creating token
+config :slack_graphql_api, SlackGraphqlApi.Guardian,
+  issuer: "slack_graphql_api",
+  secret_key: "5jpTxFEDLHK3WmfJPbRK50geTCsfFlEtr3JYUS2GHwi6KPb4AXzaDb+K2LJEUoAF"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
