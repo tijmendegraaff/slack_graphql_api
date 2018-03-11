@@ -4,6 +4,8 @@ defmodule SlackGraphqlApiWeb.Schema do
     alias SlackGraphqlApiWeb.Schema.Middleware
     alias SlackGraphqlApiWeb.Resolvers
 
+    import_types SlackGraphqlApiWeb.Schema.Types
+    
     def middleware(middleware, _field, %{identifier: :mutation}) do
         middleware ++ [Middleware.ChangesetErrors]
     end
@@ -11,8 +13,6 @@ defmodule SlackGraphqlApiWeb.Schema do
     def middleware(middleware, _field, _object) do
         middleware
     end
-    
-    import_types SlackGraphqlApiWeb.Schema.Types
 
     query do
         @desc "Get a list of all users"
@@ -26,6 +26,12 @@ defmodule SlackGraphqlApiWeb.Schema do
         field :create_user, type: :user_type do
             arg :input, non_null(:user_input_type)
             resolve &Resolvers.UserResolver.create_user/3
+        end
+
+        @desc "Login as a user and grab a JWT token"
+        field :create_session, type: :session_type do
+            arg :input, non_null(:session_input_type)
+            resolve &Resolvers.UserResolver.login/3
         end
     end
 
