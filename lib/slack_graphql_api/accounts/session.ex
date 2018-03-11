@@ -12,7 +12,7 @@ defmodule SlackGraphqlApi.Accounts.Session do
 
     defp check_password(user, params) do
         case user do
-          nil -> false
+          nil -> Comeonin.Argon2.dummy_checkpw()
           _ -> Comeonin.Argon2.checkpw(params.password, user.password_hash)
         end
     end
