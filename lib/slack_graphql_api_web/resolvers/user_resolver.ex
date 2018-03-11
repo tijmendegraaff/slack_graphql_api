@@ -2,7 +2,6 @@ defmodule SlackGraphqlApiWeb.Resolvers.UserResolver do
     alias SlackGraphqlApi.{Accounts, Guardian}
 
     def users(_,_,%{context: %{user: user}}) do
-        IO.inspect(user)
         {:ok, Accounts.list_users}
     end
 
