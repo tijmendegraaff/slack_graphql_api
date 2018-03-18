@@ -17,7 +17,7 @@ defmodule SlackGraphqlApi.Messenger do
       [%Team{}, ...]
 
   """
-  def list_teams do
+  def list_teams() do
     Repo.all(Team)
   end
 
@@ -50,6 +50,7 @@ defmodule SlackGraphqlApi.Messenger do
 
   """
   def create_team(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Team{}
     |> Team.changeset(attrs)
     |> Repo.insert()
