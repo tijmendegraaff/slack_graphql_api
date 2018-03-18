@@ -20,6 +20,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             middleware Middleware.Authorize, :any
             resolve &Resolvers.UserResolver.users/3
         end
+
+        @desc "Get a list of all teams"
+        field :teams, list_of(:team_type) do
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.TeamResolver.teams/3
+        end
     end
 
     mutation do
@@ -33,6 +39,12 @@ defmodule SlackGraphqlApiWeb.Schema do
         field :create_session, type: :session_type do
             arg :input, non_null(:session_input_type)
             resolve &Resolvers.UserResolver.login/3
+        end
+
+        @desc "Create a Team"
+        field :create_team, type: :team_type do
+            arg :input, non_null(:team_input_type)
+            resolve &Resolvers.TeamResolver.create_team/3
         end
     end
 
