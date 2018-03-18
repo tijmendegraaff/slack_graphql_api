@@ -6,5 +6,6 @@ defmodule SlackGraphqlApiWeb.Schema.Types do
     # import your types
     import_types Types.UserType
     import_types Types.SessionType
+    import_types Types.TeamType
 
   end
