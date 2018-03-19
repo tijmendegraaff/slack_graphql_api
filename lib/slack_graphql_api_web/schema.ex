@@ -21,6 +21,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.UserResolver.users/3
         end
 
+        @desc "Get a single user"
+        field :user, type: :user_type do
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.UserResolver.user/3
+        end
+
         @desc "Get a list of all teams"
         field :teams, list_of(:team_type) do
             middleware Middleware.Authorize, :any

@@ -1,6 +1,10 @@
 defmodule SlackGraphqlApiWeb.Resolvers.UserResolver do
     alias SlackGraphqlApi.{Accounts, Guardian}
 
+    def user(_,_,%{context: %{user: user}}) do
+        {:ok, Accounts.get_user!(user.id)}
+    end
+
     def users(_,_,%{context: %{user: user}}) do
         {:ok, Accounts.list_users}
     end
