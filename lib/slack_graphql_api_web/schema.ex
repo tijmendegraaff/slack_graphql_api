@@ -58,6 +58,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             arg :input, non_null(:channel_input_type)
             resolve &Resolvers.ChannelResolver.create_channel/3
         end
+
+        @desc "Create a Message"
+        field :create_message, type: :message_type do
+            arg :input, non_null(:message_input_type)
+            resolve &Resolvers.MessageResolver.create_message/3
+        end
     end
 
 end
