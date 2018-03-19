@@ -8,6 +8,8 @@ defmodule SlackGraphqlApiWeb.Schema.Types do
     import_types Types.SessionType
     import_types Types.TeamType
     import_types Types.ChannelType
+    import_types Types.MessageType
+    
     
 
   end
