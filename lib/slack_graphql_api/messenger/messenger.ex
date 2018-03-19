@@ -5,8 +5,9 @@ defmodule SlackGraphqlApi.Messenger do
 
   import Ecto.Query, warn: false
   alias SlackGraphqlApi.Repo
+  alias SlackGraphqlApi.Accounts
 
-  alias SlackGraphqlApi.Messenger.Team
+  alias SlackGraphqlApi.Messenger.{Team, Member}
 
   @doc """
   Returns the list of teams.
@@ -50,10 +51,14 @@ defmodule SlackGraphqlApi.Messenger do
 
   """
   def create_team(attrs \\ %{}) do
-    IO.inspect(attrs)
-    %Team{}
+    team = %Team{}
     |> Team.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert!
+
+    changeset = %Member{user_id: attrs.user_id, team_id: team.id}
+    |> Repo.insert!
+
+    {:ok, team}
   end
 
   @doc """

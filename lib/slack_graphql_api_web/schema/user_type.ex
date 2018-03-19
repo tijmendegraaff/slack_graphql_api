@@ -9,6 +9,8 @@ defmodule SlackGraphqlApiWeb.Schema.Types.UserType do
         field :user_name, :string
         field :email, :string
         field :role, :string
+        field :owned_teams, list_of(:team_type), resolve: assoc(:owned_teams)
+        field :teams, list_of(:team_type), resolve: assoc(:teams)
     end
 
     input_object :user_input_type do
