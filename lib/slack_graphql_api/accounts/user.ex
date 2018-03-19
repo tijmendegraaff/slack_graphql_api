@@ -2,6 +2,7 @@ defmodule SlackGraphqlApi.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias SlackGraphqlApi.Accounts.User
+  alias SlackGraphqlApi.Messenger.Team
 
   schema "users" do
     field :user_name, :string, unique: true
@@ -13,6 +14,9 @@ defmodule SlackGraphqlApi.Accounts.User do
     field :role, :string, default: "user"
     field :reset_password_sent_at, :utc_datetime
     field :reset_password_token, :string
+
+    has_many :owned_teams, Team
+    many_to_many :teams, Team, join_through: "members"
 
     timestamps()
   end
