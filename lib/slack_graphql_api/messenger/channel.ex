@@ -2,7 +2,7 @@ defmodule SlackGraphqlApi.Messenger.Channel do
     use Ecto.Schema
     import Ecto.Changeset
     alias SlackGraphqlApi.Accounts.User
-    alias SlackGraphqlApi.Messenger.Team
+    alias SlackGraphqlApi.Messenger.{Team, Message}
   
     
     schema "channels" do
@@ -10,6 +10,7 @@ defmodule SlackGraphqlApi.Messenger.Channel do
       field :is_public, :boolean, default: true
       belongs_to :team, Team
       belongs_to :user, User
+      has_many :messages, Message
   
       timestamps()
     end
