@@ -7,7 +7,7 @@ defmodule SlackGraphqlApi.Messenger do
   alias SlackGraphqlApi.Repo
   alias SlackGraphqlApi.Accounts
 
-  alias SlackGraphqlApi.Messenger.{Team, Member}
+  alias SlackGraphqlApi.Messenger.{Team, Member, Channel}
 
   @doc """
   Returns the list of teams.
@@ -59,6 +59,12 @@ defmodule SlackGraphqlApi.Messenger do
     |> Repo.insert!
 
     {:ok, team}
+  end
+
+  def create_channel(attrs \\ %{}) do
+    %Channel{}
+    |> Channel.changeset(attrs)
+    |> Repo.insert
   end
 
   @doc """

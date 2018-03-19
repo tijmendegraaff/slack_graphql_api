@@ -52,6 +52,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             arg :input, non_null(:team_input_type)
             resolve &Resolvers.TeamResolver.create_team/3
         end
+
+        @desc "Create a Channel"
+        field :create_channel, type: :channel_type do
+            arg :input, non_null(:channel_input_type)
+            resolve &Resolvers.ChannelResolver.create_channel/3
+        end
     end
 
 end
