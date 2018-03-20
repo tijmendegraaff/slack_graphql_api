@@ -32,6 +32,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             middleware Middleware.Authorize, :any
             resolve &Resolvers.TeamResolver.teams/3
         end
+
+        @desc "Get a list of all my joined teams"
+        field :my_teams, list_of(:team_type) do
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.TeamResolver.my_teams/3
+        end
     end
 
     mutation do

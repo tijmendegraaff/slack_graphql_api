@@ -4,6 +4,7 @@ defmodule SlackGraphqlApi.Messenger do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Query, only: [from: 2]
   alias SlackGraphqlApi.Repo
   alias SlackGraphqlApi.Accounts
 
@@ -20,6 +21,11 @@ defmodule SlackGraphqlApi.Messenger do
   """
   def list_teams() do
     Repo.all(Team)
+  end
+
+  def list_my_teams(user) do
+    Ecto.assoc(user, :teams)
+    |> Repo.all
   end
 
   @doc """

@@ -10,4 +10,8 @@ defmodule SlackGraphqlApiWeb.Resolvers.TeamResolver do
         {:ok, Messenger.list_teams}
     end
 
+    def my_teams(_,_,%{context: %{user: user}}) do
+        {:ok, Messenger.list_my_teams(user)}
+    end
+
 end
