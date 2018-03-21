@@ -6,7 +6,7 @@ defmodule SlackGraphqlApiWeb.Schema.Types.ChannelType do
         field :id, :id
         field :name, :string
         field :owner, :user_type, resolve: assoc(:user)
-        field :is_private, :boolean
+        field :is_public, :boolean
         field :messages, list_of(:message_type), resolve: assoc(:messages)
     end
 
