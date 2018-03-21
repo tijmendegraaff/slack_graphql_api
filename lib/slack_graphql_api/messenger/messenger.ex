@@ -41,14 +41,17 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def create_member(args) do
-    with user <- Repo.get_by(User, email: args.email) do
-      with team <- Repo.get(Team, args.team_id) do
-        member = %{user_id: user.id, team_id: team.id}
-        %Member{}
-        |> Member.changeset(member)
-        |> Repo.insert
+      case user = Repo.get_by(User, email: args.email) do
+        nil -> {:error, "user not found"}
+        _ ->
+          case team = Repo.get(Team, args.team_id) do
+            nil -> {:error, "team not found"}
+            _ ->
+              %Member{}
+              |> Member.changeset(%{user_id: user.id, team_id: team.id})
+              |> Repo.insert
+          end
       end
-    end
   end
 
   # def update_team(%Team{} = team, attrs) do
