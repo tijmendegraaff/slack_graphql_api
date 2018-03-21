@@ -28,10 +28,12 @@ defmodule SlackGraphqlApi.Messenger do
     end
   end
 
-  def create_channel(attrs \\ %{}) do
-    %Channel{}
-    |> Channel.changeset(attrs)
-    |> Repo.insert
+  def create_channel(args \\ %{}) do
+    team = Repo.get(Team, args.team_id)
+    case args.user_id === team.user_id do
+      false -> {:error, "Unauthorized"}
+      true -> %Channel{} |> Channel.changeset(args) |> Repo.insert
+    end
   end
 
   def create_message(attrs \\ %{}) do
