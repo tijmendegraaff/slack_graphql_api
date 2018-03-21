@@ -5,6 +5,7 @@ defmodule SlackGraphqlApi.Messenger do
   
   alias SlackGraphqlApi.Repo
   alias SlackGraphqlApi.Messenger.{Team, Member, Channel, Message}
+  alias SlackGraphqlApi.Accounts.User
 
   def list_teams() do
     Repo.all(Team)
@@ -39,17 +40,28 @@ defmodule SlackGraphqlApi.Messenger do
     |> Repo.insert
   end
 
-  def update_team(%Team{} = team, attrs) do
-    team
-    |> Team.changeset(attrs)
-    |> Repo.update()
+  def create_member(args) do
+    with user <- Repo.get_by(User, email: args.email) do
+      with team <- Repo.get(Team, args.team_id) do
+        member = %{user_id: user.id, team_id: team.id}
+        %Member{}
+        |> Member.changeset(member)
+        |> Repo.insert
+      end
+    end
   end
 
-  def delete_team(%Team{} = team) do
-    Repo.delete(team)
-  end
+  # def update_team(%Team{} = team, attrs) do
+  #   team
+  #   |> Team.changeset(attrs)
+  #   |> Repo.update()
+  # end
 
-  def change_team(%Team{} = team) do
-    Team.changeset(team, %{})
-  end
+  # def delete_team(%Team{} = team) do
+  #   Repo.delete(team)
+  # end
+
+  # def change_team(%Team{} = team) do
+  #   Team.changeset(team, %{})
+  # end
 end

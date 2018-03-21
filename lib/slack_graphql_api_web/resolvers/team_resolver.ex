@@ -14,4 +14,8 @@ defmodule SlackGraphqlApiWeb.Resolvers.TeamResolver do
         {:ok, Messenger.list_my_teams(user)}
     end
 
+    def add_member_to_team(_,%{input: input},_) do
+        Messenger.create_member(input)
+    end
+
 end
