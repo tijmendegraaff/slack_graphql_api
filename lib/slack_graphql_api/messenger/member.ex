@@ -11,10 +11,11 @@ defmodule SlackGraphqlApi.Messenger.Member do
     end
   
     @doc false
-    def changeset(team, attrs) do
-      team
+    def changeset(member, attrs) do
+      member
       |> cast(attrs, [:team_id, :user_id])
       |> validate_required([:team_id, :user_id])
+      |> unique_constraint(:user_id, name: :members_user_id_team_id_index)
     end
   end
   

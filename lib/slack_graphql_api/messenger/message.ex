@@ -14,8 +14,8 @@ defmodule SlackGraphqlApi.Messenger.Message do
     end
   
     @doc false
-    def changeset(team, attrs) do
-      team
+    def changeset(message, attrs) do
+      message
       |> cast(attrs, [:content, :user_id, :channel_id])
       |> validate_required([:content, :user_id, :channel_id])
     end
