@@ -38,6 +38,7 @@ defmodule SlackGraphqlApiWeb.Schema do
             middleware Middleware.Authorize, :any
             resolve &Resolvers.TeamResolver.my_teams/3
         end
+
     end
 
     mutation do
@@ -58,6 +59,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             arg :input, non_null(:team_input_type)
             middleware Middleware.Authorize, :any
             resolve &Resolvers.TeamResolver.create_team/3
+        end
+
+        @desc "Add a user to a team"
+        field :add_user_to_team, type: :member_type do
+            arg :input, non_null(:member_input_type)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.TeamResolver.add_member_to_team/3
         end
 
         @desc "Create a Channel"
