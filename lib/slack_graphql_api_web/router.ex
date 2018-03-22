@@ -14,7 +14,8 @@ defmodule SlackGraphqlApiWeb.Router do
 
     if Mix.env == :dev do
       forward "/graphiql", Absinthe.Plug.GraphiQL,
-        schema: SlackGraphqlApiWeb.Schema
+        schema: SlackGraphqlApiWeb.Schema,
+        socket: PlateSlateWeb.UserSocket
     end
   end
 end

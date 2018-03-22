@@ -36,10 +36,22 @@ defmodule SlackGraphqlApi.Messenger do
     end
   end
 
+  def test() do
+    chat = SlackGraphqlApi.Messenger.Message |> SlackGraphqlApi.Repo.all |> List.last
+    Absinthe.Subscription.publish(SlackGraphqlApiWeb.Endpoint, chat, new_channel_message: "*")
+  end
+
   def create_message(attrs \\ %{}) do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert
+  end
+
+  def list_channel_messages(args) do
+    query = from p in Message, where: p.channel_id == ^args.channel_id, order_by: p.inserted_at
+    x = Repo.all(query)
+    IO.inspect(x)
+    # Repo.all(Message, channel_id)
   end
 
   def create_member(args) do

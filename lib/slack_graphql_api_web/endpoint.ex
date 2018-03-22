@@ -1,5 +1,6 @@
 defmodule SlackGraphqlApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :slack_graphql_api
+  use Absinthe.Phoenix.Endpoint
 
   socket "/socket", SlackGraphqlApiWeb.UserSocket
 

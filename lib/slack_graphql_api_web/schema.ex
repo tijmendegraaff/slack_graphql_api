@@ -39,6 +39,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.TeamResolver.my_teams/3
         end
 
+        @desc "Get all messages for a given channel"
+        field :messages, list_of(:message_type) do
+            arg :channel_id, non_null(:id)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.MessageResolver.messages/3
+        end
+
     end
 
     mutation do
@@ -81,6 +88,14 @@ defmodule SlackGraphqlApiWeb.Schema do
             middleware Middleware.Authorize, :any
             resolve &Resolvers.MessageResolver.create_message/3
         end
+    end
+
+    subscription do
+        
+        field :new_channel_message, :message_type do
+            config fn _args, _info -> {:ok, topic: "*"} end
+        end
+    
     end
 
 end

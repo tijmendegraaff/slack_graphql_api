@@ -6,4 +6,9 @@ defmodule SlackGraphqlApiWeb.Resolvers.MessageResolver do
         Messenger.create_message(args)
     end
 
+    def messages(_,args,_) do
+        IO.inspect(args)
+        {:ok, Messenger.list_channel_messages(args)}
+    end
+
 end

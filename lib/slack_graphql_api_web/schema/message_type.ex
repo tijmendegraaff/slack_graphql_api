@@ -5,6 +5,8 @@ defmodule SlackGraphqlApiWeb.Schema.Types.MessageType do
     object :message_type do
         field :id, :id
         field :content, :string
+        field :inserted_at, :string
+        field :user, :user_type, resolve: assoc(:user)
     end
 
     input_object :message_input_type do

@@ -1,6 +1,6 @@
 defmodule SlackGraphqlApiWeb.UserSocket do
   use Phoenix.Socket
-
+  use Absinthe.Phoenix.Socket, schema: SlackGraphqlApiWeb.Schema
   ## Channels
   # channel "room:*", SlackGraphqlApiWeb.RoomChannel
 
