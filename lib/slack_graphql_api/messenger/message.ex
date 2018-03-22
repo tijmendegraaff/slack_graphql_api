@@ -18,6 +18,7 @@ defmodule SlackGraphqlApi.Messenger.Message do
       message
       |> cast(attrs, [:content, :user_id, :channel_id])
       |> validate_required([:content, :user_id, :channel_id])
+      |> foreign_key_constraint(:channel, name: :messages_channel_id_fkey, message: "exist")
     end
 end
   

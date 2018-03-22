@@ -10,12 +10,13 @@ defmodule SlackGraphqlApiWeb.Router do
     pipe_through :api
 
     forward "/graphql", Absinthe.Plug,
-      schema: SlackGraphqlApiWeb.Schema
+      schema: SlackGraphqlApiWeb.Schema,
+      socket: SlackGraphqlApiWeb.UserSocket
 
     if Mix.env == :dev do
       forward "/graphiql", Absinthe.Plug.GraphiQL,
         schema: SlackGraphqlApiWeb.Schema,
-        socket: PlateSlateWeb.UserSocket
+        socket: SlackGraphqlApiWeb.UserSocket
     end
   end
 end

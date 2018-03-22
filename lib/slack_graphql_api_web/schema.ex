@@ -91,11 +91,18 @@ defmodule SlackGraphqlApiWeb.Schema do
     end
 
     subscription do
-        
-        field :new_channel_message, :message_type do
-            config fn _args, _info -> {:ok, topic: "*"} end
-        end
-    
-    end
 
+        @desc "Subscribe to channel"
+        field :new_channel_message, type: :message_type do
+            arg :channel_id, non_null(:id)
+            
+            config fn args, _info ->
+                {:ok, topic: args.channel_id}
+            end
+
+            trigger :create_message, topic: fn message ->
+                message.channel_id
+            end
+        end
+    end
 end
