@@ -21,8 +21,8 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.UserResolver.users/3
         end
 
-        @desc "Get a single user"
-        field :user, type: :user_type do
+        @desc "Get the current user"
+        field :current_user, type: :user_type do
             middleware Middleware.Authorize, :any
             resolve &Resolvers.UserResolver.user/3
         end
