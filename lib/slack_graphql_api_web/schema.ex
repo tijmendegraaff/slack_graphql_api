@@ -46,6 +46,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.MessageResolver.messages/3
         end
 
+        @desc "Get all direct messages"
+        field :direct_messages, list_of(:direct_message_type) do
+            arg :input, non_null(:direct_message_query_type)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.DirectMessageResolver.get_direct_messages/3
+        end
+
     end
 
     mutation do
@@ -87,6 +94,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             arg :input, non_null(:message_input_type)
             middleware Middleware.Authorize, :any
             resolve &Resolvers.MessageResolver.create_message/3
+        end
+
+        @desc "Create a direct Message"
+        field :create_direct_message, type: :direct_message_type do
+            arg :input, non_null(:direct_message_input_type)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.DirectMessageResolver.create_direct_message/3
         end
     end
 
