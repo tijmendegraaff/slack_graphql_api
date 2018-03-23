@@ -10,7 +10,7 @@ defmodule SlackGraphqlApiWeb.UserSocket do
         case SlackGraphqlApi.Guardian.resource_from_claims(claims) do
           {:ok, user} ->
             socket = Absinthe.Phoenix.Socket.put_options(socket, context: %{
-              current_user: user
+              current_user: %{id: user.id, role: user.role}
             })
             IO.inspect(socket)
             {:ok, socket}

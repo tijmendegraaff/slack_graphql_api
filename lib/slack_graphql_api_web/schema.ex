@@ -103,6 +103,10 @@ defmodule SlackGraphqlApiWeb.Schema do
             trigger :create_message, topic: fn message ->
                 message.channel_id
             end
+
+            resolve fn message, _, _ -> 
+                {:ok, message} 
+            end
         end
     end
 end
