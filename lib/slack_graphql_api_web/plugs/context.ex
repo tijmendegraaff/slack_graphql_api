@@ -27,7 +27,6 @@ defmodule SlackGraphqlApiWeb.Plugs.Context do
         case get_req_header(conn, "authorization") do
             ["Bearer " <> token] ->
                 with {:ok, user, _} <- SlackGraphqlApi.Guardian.resource_from_token(token) do
-                  IO.inspect(user)
                   {:ok, %{user: user}}
                 else
                   _ ->
