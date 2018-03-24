@@ -6,8 +6,8 @@ defmodule SlackGraphqlApiWeb.Schema.Types.DirectMessageType do
         field :id, :id
         field :content, :string
         field :inserted_at, :string
-        field :sender, :user_type, resolve: assoc(:user)
-        field :receiver, :user_type, resolve: assoc(:user)
+        field :sender, :user_type, resolve: assoc(:sender)
+        field :receiver, :user_type, resolve: assoc(:receiver)
     end
 
     input_object :direct_message_input_type do

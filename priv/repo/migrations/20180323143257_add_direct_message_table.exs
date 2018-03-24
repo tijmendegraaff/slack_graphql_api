@@ -10,6 +10,6 @@ defmodule SlackGraphqlApi.Repo.Migrations.AddDirectMessageTable do
 
       timestamps()
     end
-
+    create index(:direct_messages, [:receiver_id, :sender_id, :team_id])
   end
 end
