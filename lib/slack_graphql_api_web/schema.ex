@@ -53,6 +53,12 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.DirectMessageResolver.get_direct_messages/3
         end
 
+        @desc "Get a list of direct messaged users of a team"
+        field :direct_messaged_users, list_of(:user_type) do
+            arg :team_id, non_null(:id)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.DirectMessageResolver.get_direct_messaged_users/3
+        end
     end
 
     mutation do

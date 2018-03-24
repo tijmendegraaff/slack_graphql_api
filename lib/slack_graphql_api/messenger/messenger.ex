@@ -60,6 +60,18 @@ defmodule SlackGraphqlApi.Messenger do
       |> Repo.all()
   end
 
+  # def list_direct_messages_users(args) do
+  #   query = (
+  #     from dm in DirectMessage,
+  #     where: dm.team_id == ^args.team_id and 
+  #     dm.receiver_id == ^args.user_id or
+  #     dm.sender_id == ^args.user_id, 
+  #     select: [dm.receiver_id, dm.sender_id],
+  #     distinct: true
+  #     )
+  #   |> Repo.all()
+  # end
+
   def list_channel_messages(args) do
     query = (from p in Message, where: p.channel_id == ^args.channel_id, order_by: p.inserted_at)
     |> Repo.all()
