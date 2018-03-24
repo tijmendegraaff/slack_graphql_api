@@ -51,14 +51,13 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def list_direct_messages(args) do
-      IO.inspect(args)
       query = (
       from dm in DirectMessage,
       where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.receiver_id and dm.sender_id == ^args.sender_id,
-      or_where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.sender_id and dm.receiver_id == ^args.sender_id
+      or_where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.sender_id and dm.receiver_id == ^args.sender_id,
+      order_by: [asc: dm.inserted_at]
       )
       |> Repo.all()
-      # |> Repo.preload(:users)
   end
 
   def list_channel_messages(args) do
