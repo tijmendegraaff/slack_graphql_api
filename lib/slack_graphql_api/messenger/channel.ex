@@ -8,6 +8,7 @@ defmodule SlackGraphqlApi.Messenger.Channel do
     schema "channels" do
       field :name, :string
       field :is_public, :boolean, default: true
+      field :is_direct_message_channel, :boolean, default: false
       belongs_to :team, Team
       belongs_to :user, User
       has_many :messages, Message
@@ -18,8 +19,8 @@ defmodule SlackGraphqlApi.Messenger.Channel do
     @doc false
     def changeset(channel, attrs) do
       channel
-      |> cast(attrs, [:name, :is_public, :user_id, :team_id])
-      |> validate_required([:name, :is_public, :user_id, :team_id])
+      |> cast(attrs, [:name, :is_public, :user_id, :team_id, :is_direct_message_channel])
+      |> validate_required([:name, :is_public, :user_id, :team_id, :is_direct_message_channel])
       |> validate_length(:name, min: 1, max: 30)
     end
   end

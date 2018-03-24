@@ -4,7 +4,7 @@ defmodule SlackGraphqlApi.Messenger do
   import Ecto.Query, only: [from: 2]
   
   alias SlackGraphqlApi.Repo
-  alias SlackGraphqlApi.Messenger.{Team, Member, Channel, Message, DirectMessage}
+  alias SlackGraphqlApi.Messenger.{Team, Member, Channel, Message}
   alias SlackGraphqlApi.Accounts.User
 
   def list_teams() do
@@ -44,21 +44,21 @@ defmodule SlackGraphqlApi.Messenger do
     |> Repo.insert
   end
 
-  def create_direct_message(args) do
-    %DirectMessage{}
-    |> DirectMessage.changeset(args)
-    |> Repo.insert
-  end
+  # def create_direct_message(args) do
+  #   %DirectMessage{}
+  #   |> DirectMessage.changeset(args)
+  #   |> Repo.insert
+  # end
 
-  def list_direct_messages(args) do
-      query = (
-      from dm in DirectMessage,
-      where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.receiver_id and dm.sender_id == ^args.sender_id,
-      or_where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.sender_id and dm.receiver_id == ^args.sender_id,
-      order_by: [asc: dm.inserted_at]
-      )
-      |> Repo.all()
-  end
+  # def list_direct_messages(args) do
+  #     query = (
+  #     from dm in DirectMessage,
+  #     where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.receiver_id and dm.sender_id == ^args.sender_id,
+  #     or_where: dm.team_id == ^args.team_id and dm.receiver_id == ^args.sender_id and dm.receiver_id == ^args.sender_id,
+  #     order_by: [asc: dm.inserted_at]
+  #     )
+  #     |> Repo.all()
+  # end
 
   # def list_direct_messages_users(args) do
   #   query = (
