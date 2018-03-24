@@ -122,5 +122,22 @@ defmodule SlackGraphqlApiWeb.Schema do
                 {:ok, message} 
             end
         end
+
+        # @desc "Subscribe to direct message channel"
+        # field :new_direct_channel_message, type: :direct_message_type do
+        #     arg :input, non_null(:direct_message_input_type)
+            
+        #     config fn args, _info ->
+        #         {:ok, topic: args.channel_id}
+        #     end
+
+        #     trigger :create_direct_message, topic: fn direct_message ->
+        #         direct_message.channel_id
+        #     end
+
+            # resolve fn message, _, _ -> 
+            #     {:ok, message} 
+            # end
+        # end
     end
 end
