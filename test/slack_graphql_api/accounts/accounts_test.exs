@@ -6,9 +6,36 @@ defmodule SlackGraphqlApi.AccountsTest do
   describe "users" do
     alias SlackGraphqlApi.Accounts.User
 
-    @valid_attrs %{email: "some email", first_name: "some first_name", last_name: "some last_name", password_hash: "some password_hash", reset_password_sent_at: "2010-04-17 14:00:00.000000Z", reset_password_token: "some reset_password_token", role: "some role", user_name: "some user_name"}
-    @update_attrs %{email: "some updated email", first_name: "some updated first_name", last_name: "some updated last_name", password_hash: "some updated password_hash", reset_password_sent_at: "2011-05-18 15:01:01.000000Z", reset_password_token: "some updated reset_password_token", role: "some updated role", user_name: "some updated user_name"}
-    @invalid_attrs %{email: nil, first_name: nil, last_name: nil, password_hash: nil, reset_password_sent_at: nil, reset_password_token: nil, role: nil, user_name: nil}
+    @valid_attrs %{
+      email: "some email",
+      first_name: "some first_name",
+      last_name: "some last_name",
+      password_hash: "some password_hash",
+      reset_password_sent_at: "2010-04-17 14:00:00.000000Z",
+      reset_password_token: "some reset_password_token",
+      role: "some role",
+      user_name: "some user_name"
+    }
+    @update_attrs %{
+      email: "some updated email",
+      first_name: "some updated first_name",
+      last_name: "some updated last_name",
+      password_hash: "some updated password_hash",
+      reset_password_sent_at: "2011-05-18 15:01:01.000000Z",
+      reset_password_token: "some updated reset_password_token",
+      role: "some updated role",
+      user_name: "some updated user_name"
+    }
+    @invalid_attrs %{
+      email: nil,
+      first_name: nil,
+      last_name: nil,
+      password_hash: nil,
+      reset_password_sent_at: nil,
+      reset_password_token: nil,
+      role: nil,
+      user_name: nil
+    }
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -35,7 +62,10 @@ defmodule SlackGraphqlApi.AccountsTest do
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
       assert user.password_hash == "some password_hash"
-      assert user.reset_password_sent_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert user.reset_password_sent_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
       assert user.reset_password_token == "some reset_password_token"
       assert user.role == "some role"
       assert user.user_name == "some user_name"
@@ -53,7 +83,10 @@ defmodule SlackGraphqlApi.AccountsTest do
       assert user.first_name == "some updated first_name"
       assert user.last_name == "some updated last_name"
       assert user.password_hash == "some updated password_hash"
-      assert user.reset_password_sent_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert user.reset_password_sent_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
       assert user.reset_password_token == "some updated reset_password_token"
       assert user.role == "some updated role"
       assert user.user_name == "some updated user_name"

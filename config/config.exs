@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :slack_graphql_api,
-  ecto_repos: [SlackGraphqlApi.Repo]
+config :slack_graphql_api, ecto_repos: [SlackGraphqlApi.Repo]
 
 # Configures the endpoint
 config :slack_graphql_api, SlackGraphqlApiWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "fnH8yFlX+PdYsBzpanpPhw45/0wCc93usiwA8Gyjtyd1NR9s3h3xOtqu5O3mTIjw",
   render_errors: [view: SlackGraphqlApiWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: SlackGraphqlApi.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: SlackGraphqlApi.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -29,4 +27,4 @@ config :slack_graphql_api, SlackGraphqlApi.Guardian,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

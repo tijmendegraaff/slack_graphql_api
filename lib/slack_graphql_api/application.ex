@@ -13,7 +13,7 @@ defmodule SlackGraphqlApi.Application do
       # Start the endpoint when the application starts
       supervisor(SlackGraphqlApiWeb.Endpoint, []),
       # Start Absinth endpoint
-      supervisor(Absinthe.Subscription, [SlackGraphqlApiWeb.Endpoint]),
+      supervisor(Absinthe.Subscription, [SlackGraphqlApiWeb.Endpoint])
       # Start your own worker by calling: SlackGraphqlApi.Worker.start_link(arg1, arg2, arg3)
       # worker(SlackGraphqlApi.Worker, [arg1, arg2, arg3]),
     ]
