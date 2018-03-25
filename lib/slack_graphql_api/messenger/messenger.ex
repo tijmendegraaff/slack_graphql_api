@@ -4,7 +4,7 @@ defmodule SlackGraphqlApi.Messenger do
   import Ecto.Query, only: [from: 2]
   
   alias SlackGraphqlApi.Repo
-  alias SlackGraphqlApi.Messenger.{Team, Member, Channel, Message}
+  alias SlackGraphqlApi.Messenger.{Team, Member, Channel, Message, ChannelMember}
   alias SlackGraphqlApi.Accounts.User
 
   def list_teams() do
@@ -29,12 +29,36 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def create_channel(args \\ %{}) do
+    IO.inspect(args)
     case team = Repo.get(Team, args.team_id) do
       nil -> {:error, "Team does not exsist"}
       _ ->  case args.user_id === team.user_id do
               false -> {:error, "Unauthorized"}
-              true -> %Channel{} |> Channel.changeset(args) |> Repo.insert
+              true -> with {:ok, channel} <- %Channel{} |> Channel.changeset(args) |> Repo.insert do
+                %ChannelMember{user_id: args.user_id, channel_id: channel.id} |> Repo.insert
+                {:ok, channel}
+              end
             end
+    end
+  end
+
+  def create_direct_message_channel(args) do
+    team = Repo.get(Team, args.team_id)
+    if team do
+      channel = check_if_channel_already_exists(args, team)
+      if channel == false do
+        with {:ok, new_channel} <- %Channel{} |> Channel.changeset(args) |> Repo.insert do
+          Enum.each args.members, fn member ->
+            user = Repo.get!(User, member)
+            %ChannelMember{user_id: user.id, channel_id: new_channel.id} |> Repo.insert
+          end
+          new_channel
+        end
+      else
+        channel
+      end
+    else
+      {:error, "Team does not exist"}
     end
   end
 
@@ -104,4 +128,29 @@ defmodule SlackGraphqlApi.Messenger do
   # def change_team(%Team{} = team) do
   #   Team.changeset(team, %{})
   # end
+
+  def check_if_channel_already_exists(args, team) do
+    user_list = Enum.map(args.members, fn(member) -> Repo.get!(User, member) end)
+    user_id_list = Enum.map(user_list, fn(user) -> user.id end)
+    query = ("""
+      select c.id, c.name 
+      from channels as c, channel_members cm 
+      where cm.channel_id = c.id and 
+      c.is_direct_message_channel = true and 
+      c.is_public = false and c.team_id = $1
+      group by c.id, 
+      c.name having array_agg(cm.user_id) @> $2
+      and count(cm.user_id) = $3
+    """)
+    result = Ecto.Adapters.SQL.query!(Repo, query, [team.id, user_id_list, Enum.count(user_id_list)])
+    IO.inspect(result)
+    cond do
+      result.num_rows == 0 ->
+        false
+      result.num_rows != 0 ->
+        first_element_of_result = Enum.at(result.rows, 0)
+        channel_id = Enum.at(first_element_of_result, 0)
+        Repo.get!(Channel, channel_id)
+    end
+  end
 end
