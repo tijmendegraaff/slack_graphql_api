@@ -46,19 +46,6 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.MessageResolver.messages/3
         end
 
-        @desc "Get all direct messages"
-        field :direct_messages, list_of(:direct_message_type) do
-            arg :input, non_null(:direct_message_query_type)
-            middleware Middleware.Authorize, :any
-            resolve &Resolvers.DirectMessageResolver.get_direct_messages/3
-        end
-
-        @desc "Get a list of direct messaged users of a team"
-        field :direct_messaged_users, list_of(:user_type) do
-            arg :team_id, non_null(:id)
-            middleware Middleware.Authorize, :any
-            resolve &Resolvers.DirectMessageResolver.get_direct_messaged_users/3
-        end
     end
 
     mutation do
@@ -95,6 +82,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.ChannelResolver.create_channel/3
         end
 
+        @desc "Create a direct message Channel"
+        field :create_direct_message_channel, type: :channel_type do
+            arg :input, non_null(:direct_message_channel_input_type)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.ChannelResolver.create_direct_message_channel/3
+        end
+
         @desc "Create a Message"
         field :create_message, type: :message_type do
             arg :input, non_null(:message_input_type)
@@ -102,12 +96,6 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.MessageResolver.create_message/3
         end
 
-        @desc "Create a direct Message"
-        field :create_direct_message, type: :direct_message_type do
-            arg :input, non_null(:direct_message_input_type)
-            middleware Middleware.Authorize, :any
-            resolve &Resolvers.DirectMessageResolver.create_direct_message/3
-        end
     end
 
     subscription do

@@ -11,7 +11,6 @@ defmodule SlackGraphqlApiWeb.Schema.Types.UserType do
         field :role, :string
         field :owned_teams, list_of(:team_type), resolve: assoc(:owned_teams)
         field :teams, list_of(:team_type), resolve: assoc(:teams)
-        field :direct_messages, list_of(:direct_message_type), resolve: assoc(:direct_message)
     end
 
     input_object :user_input_type do

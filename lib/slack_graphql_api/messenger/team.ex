@@ -8,7 +8,6 @@ defmodule SlackGraphqlApi.Messenger.Team do
     field :name, :string
     belongs_to :user, User
     has_many :channels, Channel
-    has_many :direct_messages, DirectMessage
     many_to_many :users, User, join_through: "members"
 
     timestamps()
