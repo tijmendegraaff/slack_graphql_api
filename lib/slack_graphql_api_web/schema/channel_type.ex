@@ -9,13 +9,20 @@ defmodule SlackGraphqlApiWeb.Schema.Types.ChannelType do
         field :is_public, :boolean
         field :is_direct_message_channel, :boolean
         field :messages, list_of(:message_type), resolve: assoc(:messages)
+        field :members, list_of(:user_type), resolve: assoc(:users)
     end
 
     input_object :channel_input_type do
         field :name, non_null(:string)
         field :team_id, non_null(:id)
         field :is_public, non_null(:boolean)
-        field :is_direct_message_channel, non_null(:boolean)
+        field :members, list_of(:id)
+    end
+
+    input_object :direct_message_channel_input_type do
+        field :members, list_of(:id)
+        field :name, non_null(:string)
+        field :team_id, non_null(:id)
     end
 
 end
