@@ -2,7 +2,7 @@ defmodule SlackGraphqlApi.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias SlackGraphqlApi.Accounts.User
-  alias SlackGraphqlApi.Messenger.{Team, Channel}
+  alias SlackGraphqlApi.Messenger.{Team, Channel, ChannelMember}
 
   schema "users" do
     field :user_name, :string, unique: true
@@ -17,7 +17,9 @@ defmodule SlackGraphqlApi.Accounts.User do
 
     has_many :owned_teams, Team
     has_many :owned_channels, Channel
+    has_many :channel_members, ChannelMember
     many_to_many :teams, Team, join_through: "members"
+    many_to_many :channels, Channel, join_through: "channel_members"
 
     timestamps()
   end
