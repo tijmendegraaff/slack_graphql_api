@@ -82,6 +82,13 @@ defmodule SlackGraphqlApiWeb.Schema do
             resolve &Resolvers.ChannelResolver.create_channel/3
         end
 
+        @desc "Create a direct message Channel"
+        field :create_direct_message_channel, type: :channel_type do
+            arg :input, non_null(:direct_message_channel_input_type)
+            middleware Middleware.Authorize, :any
+            resolve &Resolvers.ChannelResolver.create_direct_message_channel/3
+        end
+
         @desc "Create a Message"
         field :create_message, type: :message_type do
             arg :input, non_null(:message_input_type)
