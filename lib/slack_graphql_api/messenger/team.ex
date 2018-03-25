@@ -2,7 +2,7 @@ defmodule SlackGraphqlApi.Messenger.Team do
   use Ecto.Schema
   import Ecto.Changeset
   alias SlackGraphqlApi.Accounts.User
-  alias SlackGraphqlApi.Messenger.{Channel, Member, DirectMessage}
+  alias SlackGraphqlApi.Messenger.{Channel, DirectMessage}
   
   schema "teams" do
     field :name, :string

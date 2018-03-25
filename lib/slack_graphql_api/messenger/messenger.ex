@@ -20,7 +20,7 @@ defmodule SlackGraphqlApi.Messenger do
 
   def create_team(attrs \\ %{}) do
     with {:ok, team} <- %Team{} |> Team.changeset(attrs) |> Repo.insert do
-      with {:ok, member} <- %Member{user_id: attrs.user_id, team_id: team.id} |> Repo.insert do
+      with {:ok, member} <- %Member{} |> Member.changeset(%{user_id: attrs.user_id, team_id: team.id}) |> Repo.insert do
         channel = %{name: "general", team_id: team.id, user_id: attrs.user_id}
         |> create_channel
         {:ok, team}

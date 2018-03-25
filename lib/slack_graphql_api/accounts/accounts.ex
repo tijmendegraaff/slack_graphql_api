@@ -67,11 +67,11 @@ defmodule SlackGraphqlApi.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
-  end
+  # def update_user(%User{} = user, attrs) do
+  #   user
+  #   |> User.changeset(attrs)
+  #   |> Repo.update()
+  # end
 
   @doc """
   Deletes a User.
@@ -98,7 +98,7 @@ defmodule SlackGraphqlApi.Accounts do
       %Ecto.Changeset{source: %User{}}
 
   """
-  def change_user(%User{} = user) do
-    User.changeset(user, %{})
-  end
+  # def change_user(%User{} = user) do
+  #   User.changeset(user, %{})
+  # end
 end
