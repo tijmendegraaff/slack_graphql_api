@@ -3,6 +3,14 @@ defmodule SlackGraphqlApiWeb.Resolvers.ChannelResolver do
   alias SlackGraphqlApiWeb.Utils.StringGenerator
   import Ecto
 
+  def list_private_channels(team, _, %{context: %{user: user}}) do
+    {:ok, Messenger.list_my_private_channels(team, user)}
+  end
+
+  def list_channels(team, _, %{context: %{user: user}}) do
+    {:ok, Messenger.list_my_channels(team, user)}
+  end
+
   def create_channel(_, %{input: input}, %{context: %{user: user}}) do
     args = Map.merge(input, %{user_id: user.id})
     IO.inspect(args)
