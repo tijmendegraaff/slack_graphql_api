@@ -21,7 +21,6 @@ defmodule SlackGraphqlApiWeb.Schema.Types.ChannelType do
 
   input_object :direct_message_channel_input_type do
     field(:members, list_of(:id))
-    field(:name, non_null(:string))
     field(:team_id, non_null(:id))
   end
 end
