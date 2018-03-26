@@ -32,6 +32,30 @@ defmodule SlackGraphqlApi.Messenger do
     end
   end
 
+  def list_my_channels(team, user) do
+    query =
+      from(
+        c in Channel,
+        join: cm in assoc(c, :channel_members),
+        where:
+          (c.is_direct_message_channel == false and c.team_id == ^team.id and
+             cm.user_id == ^user.id) or (c.is_public == true and c.team_id == ^team.id)
+      )
+      |> Repo.all()
+  end
+
+  def list_my_private_channels(team, user) do
+    query =
+      from(
+        c in Channel,
+        join: cm in assoc(c, :channel_members),
+        where:
+          c.is_direct_message_channel == true and c.is_public == false and c.team_id == ^team.id and
+            cm.user_id == ^user.id
+      )
+      |> Repo.all()
+  end
+
   def create_channel(args \\ %{}) do
     IO.inspect(args)
 
