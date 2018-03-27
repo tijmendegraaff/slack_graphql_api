@@ -3,6 +3,7 @@ defmodule SlackGraphqlApiWeb.Schema.Types.SessionType do
 
   object :session_type do
     field(:token, :string)
+    field(:user, :user_type)
   end
 
   input_object :session_input_type do

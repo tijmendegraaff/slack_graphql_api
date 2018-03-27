@@ -17,7 +17,7 @@ defmodule SlackGraphqlApiWeb.Resolvers.UserResolver do
   def login(_, %{input: input}, _) do
     with {:ok, user} <- Accounts.Session.authenticate(input),
          {:ok, jwt, _} <- Guardian.encode_and_sign(user) do
-      {:ok, %{token: jwt}}
+      {:ok, %{token: jwt, user: user}}
     end
   end
 end
