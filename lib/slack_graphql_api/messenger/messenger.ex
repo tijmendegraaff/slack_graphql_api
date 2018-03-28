@@ -33,6 +33,8 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def list_my_channels(team, user) do
+    IO.inspect(user)
+
     query =
       from(
         c in Channel,
