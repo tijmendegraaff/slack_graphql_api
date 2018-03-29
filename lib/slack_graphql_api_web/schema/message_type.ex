@@ -13,4 +13,9 @@ defmodule SlackGraphqlApiWeb.Schema.Types.MessageType do
     field(:content, non_null(:string))
     field(:channel_id, non_null(:id))
   end
+
+  input_object :message_query_input_type do
+    field(:channel_id, non_null(:id))
+    field(:cursor, :string)
+  end
 end

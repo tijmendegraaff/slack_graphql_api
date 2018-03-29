@@ -137,9 +137,28 @@ defmodule SlackGraphqlApi.Messenger do
   # end
 
   def list_channel_messages(args) do
-    query =
-      from(p in Message, where: p.channel_id == ^args.channel_id, order_by: p.inserted_at)
-      |> Repo.all()
+    IO.inspect(args.input)
+
+    if Map.has_key?(args.input, :cursor) do
+      query =
+        from(
+          m in Message,
+          where: m.channel_id == ^args.input.channel_id and m.inserted_at < ^args.input.cursor,
+          order_by: m.inserted_at,
+          limit: 40
+        )
+        |> Repo.all()
+        |> IO.inspect()
+    else
+      query =
+        from(
+          m in Message,
+          where: m.channel_id == ^args.input.channel_id,
+          order_by: m.inserted_at,
+          limit: 40
+        )
+        |> Repo.all()
+    end
   end
 
   def create_member(args) do
