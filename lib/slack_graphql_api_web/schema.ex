@@ -41,7 +41,7 @@ defmodule SlackGraphqlApiWeb.Schema do
 
     @desc "Get all messages for a given channel"
     field :messages, list_of(:message_type) do
-      arg(:channel_id, non_null(:id))
+      arg(:input, non_null(:message_query_input_type))
       middleware(Middleware.Authorize, :any)
       resolve(&Resolvers.MessageResolver.messages/3)
     end
