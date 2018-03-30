@@ -1,4 +1,5 @@
 defmodule SlackGraphqlApi.Messenger do
+  import Ecto
   import Ecto.Query, warn: false
   import Ecto.Query, only: [from: 2]
 
@@ -137,14 +138,14 @@ defmodule SlackGraphqlApi.Messenger do
   # end
 
   def list_channel_messages(args) do
-    IO.inspect(args.input)
-
     if Map.has_key?(args.input, :cursor) do
+      {:ok, time} = NaiveDateTime.from_iso8601(args.input.cursor)
+
       query =
         from(
           m in Message,
-          where: m.channel_id == ^args.input.channel_id and m.inserted_at < ^args.input.cursor,
-          order_by: m.inserted_at,
+          where: m.channel_id == ^args.input.channel_id and m.inserted_at < ^time,
+          order_by: [desc: :inserted_at],
           limit: 40
         )
         |> Repo.all()
@@ -154,7 +155,7 @@ defmodule SlackGraphqlApi.Messenger do
         from(
           m in Message,
           where: m.channel_id == ^args.input.channel_id,
-          order_by: m.inserted_at,
+          order_by: [desc: :inserted_at],
           limit: 40
         )
         |> Repo.all()
