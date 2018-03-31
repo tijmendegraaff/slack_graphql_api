@@ -7,6 +7,8 @@ defmodule SlackGraphqlApiWeb.Schema.Types.TeamType do
 
   object :team_type do
     field(:id, :id)
+    field(:description, :string)
+    field(:avatar, :string)
     field(:name, :string)
     field(:owner, :user_type, resolve: assoc(:user))
     field(:members, list_of(:user_type), resolve: assoc(:users))
