@@ -222,4 +222,23 @@ defmodule SlackGraphqlApi.Messenger do
         Repo.get!(Channel, channel_id)
     end
   end
+
+  def get_presigned_url(model_name) do
+    uuid = UUID.uuid4()
+    query_params = [{"ContentType", "image/jpg"}, {"ACL", "public-read"}]
+    presigned_options = [virtual_host: false, query_params: query_params]
+    aws_config = ExAws.Config.new(:s3)
+
+    {:ok, url} =
+      aws_config
+      |> ExAws.S3.presigned_url(:put, "#{model_name}_avatar", "#{uuid}.jpg", presigned_options)
+
+    %{upload_url: url, image_url: get_image_url(model_name, uuid, aws_config)}
+  end
+
+  defp get_image_url(model_name, uuid, aws_config) do
+    "#{aws_config.scheme}s3.#{aws_config.region}.amazonaws.com/slick-graphql-api/#{model_name}_avatar/#{
+      uuid
+    }.jpg"
+  end
 end
