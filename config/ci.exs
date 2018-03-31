@@ -17,8 +17,8 @@ config :argon2_elixir,
 # Configure your database
 config :slack_graphql_api, SlackGraphqlApi.Repo,
   adapter: Ecto.Adapters.Postgres,
-  # username: "postgres",
-  # password: "postgres",
+  username: "postgres",
+  password: "",
   database: "slack_graphql_api_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

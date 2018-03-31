@@ -5,10 +5,10 @@ defmodule SlackGraphqlApi.Mixfile do
     [
       app: :slack_graphql_api,
       version: "0.0.1",
-      elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixir: "~> 1.6",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
     ]
@@ -26,7 +26,7 @@ defmodule SlackGraphqlApi.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -38,7 +38,17 @@ defmodule SlackGraphqlApi.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:cors_plug, "~> 1.5"},
+      {:absinthe, "~> 1.4"},
+      {:absinthe_plug, "~> 1.4.2", override: true},
+      {:absinthe_ecto, "~> 0.1.3"},
+      {:absinthe_phoenix, "~> 1.4"},
+      {:ex_machina, "~> 2.1"},
+      {:faker, "~> 0.9.0"},
+      {:comeonin, "~> 4.1"},
+      {:argon2_elixir, "~> 1.2"},
+      {:guardian, "~> 1.0"}
     ]
   end
 
@@ -52,7 +62,7 @@ defmodule SlackGraphqlApi.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
