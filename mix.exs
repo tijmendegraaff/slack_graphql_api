@@ -48,7 +48,12 @@ defmodule SlackGraphqlApi.Mixfile do
       {:faker, "~> 0.9.0"},
       {:comeonin, "~> 4.1"},
       {:argon2_elixir, "~> 1.2"},
-      {:guardian, "~> 1.0"}
+      {:guardian, "~> 1.0"},
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"},
+      {:uuid, "~> 1.1"}
     ]
   end
 
