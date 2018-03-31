@@ -43,11 +43,18 @@ defmodule SlackGraphqlApiWeb.Schema do
     field :messages, list_of(:message_type) do
       arg(:input, non_null(:message_query_input_type))
       middleware(Middleware.Authorize, :any)
-      resolve(&Resolvers.MessageResolver.messages/3)
+      resolve(&Resolvers.UploadImageResolver.get_image_upload_url/3)
     end
   end
 
   mutation do
+    @desc "Get a presigned url to upload an image"
+    field :presigned_url, type: :upload_image_url_type do
+      arg(:input, non_null(:upload_image_url_input_type))
+      middleware(Middleware.Authorize, :any)
+      resolve(&Resolvers.UploadImageResolver.get_image_upload_url/3)
+    end
+
     @desc "Register a user"
     field :create_user, type: :user_type do
       arg(:input, non_null(:user_input_type))

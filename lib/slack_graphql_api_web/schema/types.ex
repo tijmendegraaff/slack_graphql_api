@@ -10,4 +10,5 @@ defmodule SlackGraphqlApiWeb.Schema.Types do
   import_types(Types.ChannelType)
   import_types(Types.MessageType)
   import_types(Types.MemberType)
+  import_types(Types.UploadImageUrlType)
 end
