@@ -11,7 +11,7 @@ config :slack_graphql_api, ecto_repos: [SlackGraphqlApi.Repo]
 # Configures the endpoint
 config :slack_graphql_api, SlackGraphqlApiWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "fnH8yFlX+PdYsBzpanpPhw45/0wCc93usiwA8Gyjtyd1NR9s3h3xOtqu5O3mTIjw",
+  secret_key_base: System.get_env("ENDPOINT_SECRET_KEY_BASE"),
   render_errors: [view: SlackGraphqlApiWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: SlackGraphqlApi.PubSub, adapter: Phoenix.PubSub.PG2]
 
@@ -23,7 +23,12 @@ config :logger, :console,
 # Configures Guardian for creating token
 config :slack_graphql_api, SlackGraphqlApi.Guardian,
   issuer: "slack_graphql_api",
-  secret_key: "5jpTxFEDLHK3WmfJPbRK50geTCsfFlEtr3JYUS2GHwi6KPb4AXzaDb+K2LJEUoAF"
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+
+# Configure AWS s3 upload keys
+config :ex_aws,
+  access_key_id: System.get_env("AWS_ACCES_KEY_ID"),
+  secret_access_key: System.get_env("AWS_SECRET_ACCES_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
