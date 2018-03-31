@@ -6,6 +6,7 @@ defmodule SlackGraphqlApi.Messenger.Team do
 
   schema "teams" do
     field(:name, :string)
+    field(:avatar, :string)
     belongs_to(:user, User)
     has_many(:channels, Channel)
     many_to_many(:users, User, join_through: "members")
@@ -16,7 +17,7 @@ defmodule SlackGraphqlApi.Messenger.Team do
   @doc false
   def changeset(team, attrs) do
     team
-    |> cast(attrs, [:name, :user_id])
+    |> cast(attrs, [:name, :user_id, :avatar])
     |> validate_required([:name, :user_id])
     |> validate_length(:name, min: 1, max: 30)
     |> unique_constraint(:name)

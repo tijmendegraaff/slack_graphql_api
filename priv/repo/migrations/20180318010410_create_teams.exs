@@ -3,13 +3,14 @@ defmodule SlackGraphqlApi.Repo.Migrations.CreateTeams do
 
   def change do
     create table(:teams) do
-      add :name, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add(:name, :string)
+      add(:user_id, references(:users, on_delete: :nothing))
+      add(:avatar, :string)
 
       timestamps()
     end
 
-    create index(:teams, [:user_id])
-    create unique_index(:teams, [:name])
+    create(index(:teams, [:user_id]))
+    create(unique_index(:teams, [:name]))
   end
 end
