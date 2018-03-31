@@ -1,5 +1,4 @@
 defmodule SlackGraphqlApi.Messenger do
-  import Ecto
   import Ecto.Query, warn: false
   import Ecto.Query, only: [from: 2]
 
@@ -34,8 +33,6 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def list_my_channels(team, user) do
-    IO.inspect(user)
-
     query =
       from(
         c in Channel,
@@ -60,8 +57,6 @@ defmodule SlackGraphqlApi.Messenger do
   end
 
   def create_channel(args \\ %{}) do
-    IO.inspect(args)
-
     case team = Repo.get(Team, args.team_id) do
       nil ->
         {:error, "Team does not exsist"}
@@ -149,7 +144,6 @@ defmodule SlackGraphqlApi.Messenger do
           limit: 40
         )
         |> Repo.all()
-        |> IO.inspect()
     else
       query =
         from(
@@ -217,8 +211,6 @@ defmodule SlackGraphqlApi.Messenger do
 
     result =
       Ecto.Adapters.SQL.query!(Repo, query, [team.id, user_id_list, Enum.count(user_id_list)])
-
-    IO.inspect(result)
 
     cond do
       result.num_rows == 0 ->

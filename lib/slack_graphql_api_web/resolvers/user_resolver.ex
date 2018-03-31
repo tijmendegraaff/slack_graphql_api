@@ -10,7 +10,6 @@ defmodule SlackGraphqlApiWeb.Resolvers.UserResolver do
   end
 
   def create_user(_, %{input: input}, _) do
-    IO.inspect(input)
     Accounts.create_user(input)
   end
 
