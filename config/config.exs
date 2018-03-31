@@ -28,7 +28,12 @@ config :slack_graphql_api, SlackGraphqlApi.Guardian,
 # Configure AWS s3 upload keys
 config :ex_aws,
   access_key_id: System.get_env("AWS_ACCES_KEY_ID"),
-  secret_access_key: System.get_env("AWS_SECRET_ACCES_KEY")
+  secret_access_key: System.get_env("AWS_SECRET_ACCES_KEY"),
+  s3: [
+    scheme: "https://",
+    host: "slick-graphql-api.s3.amazonaws.com",
+    region: "eu-central-1"
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
