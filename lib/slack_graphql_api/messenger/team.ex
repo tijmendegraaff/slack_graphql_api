@@ -18,7 +18,7 @@ defmodule SlackGraphqlApi.Messenger.Team do
   @doc false
   def changeset(team, attrs) do
     team
-    |> cast(attrs, [:name, :user_id, :avatar, description])
+    |> cast(attrs, [:name, :user_id, :avatar, :description])
     |> validate_required([:name, :user_id])
     |> validate_length(:name, min: 1, max: 30)
     |> unique_constraint(:name)
