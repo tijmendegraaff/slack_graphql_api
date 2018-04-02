@@ -43,7 +43,7 @@ defmodule SlackGraphqlApiWeb.Schema do
     field :messages, list_of(:message_type) do
       arg(:input, non_null(:message_query_input_type))
       middleware(Middleware.Authorize, :any)
-      resolve(&Resolvers.UploadImageResolver.get_image_upload_url/3)
+      resolve(&Resolvers.MessageResolver.messages/3)
     end
   end
 
