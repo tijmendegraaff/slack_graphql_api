@@ -2,6 +2,7 @@ defmodule SlackGraphqlApi.Factory do
   use ExMachina.Ecto, repo: SlackGraphqlApi.Repo
 
   alias SlackGraphqlApi.Accounts.User
+  alias SlackGraphqlApi.Messenger.Team
 
   def user_factory do
     %User{
@@ -11,5 +12,9 @@ defmodule SlackGraphqlApi.Factory do
       email: sequence(:email, &"email-#{&1}@example.com"),
       password: "password"
     }
+  end
+
+  def team_factory do
+    %Team{}
   end
 end
