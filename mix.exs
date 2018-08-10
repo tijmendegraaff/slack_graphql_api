@@ -40,7 +40,7 @@ defmodule SlackGraphqlApi.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:cors_plug, "~> 1.5"},
-      {:absinthe, "~> 1.4"},
+      {:absinthe, "~> 1.4.13"},
       {:absinthe_plug, "~> 1.4.2", override: true},
       {:absinthe_ecto, "~> 0.1.3"},
       {:absinthe_phoenix, "~> 1.4"},
