@@ -21,6 +21,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Configures Guardian for creating token
+# To set the .env variables run "source .env" in terminal
 config :slack_graphql_api, SlackGraphqlApi.Guardian,
   issuer: "slack_graphql_api",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
